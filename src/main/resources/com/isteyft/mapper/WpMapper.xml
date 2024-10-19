@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.isteyft.mapper.WpMapper">
+    <insert id="saveWall">
+        insert into tb_wallpaper(wallpaperId, labels,username)
+        values (#{uniqueFileName}, #{tag},#{username})
+    </insert>
+    <update id="upWall">
+        UPDATE tb_wallpaper
+        SET labels = #{tag}, uploadTime = now()
+        WHERE wallpaperId = #{wallpaperId}
+    </update>
+    <delete id="delwp">
+        delete from tb_wallpaper WHERE wallpaperId = #{wallpaperId}
+    </delete>
+    <select id="findByUsername" resultType="com.isteyft.pojo.Wallpaper">
+        SELECT * FROM tb_wallpaper WHERE
+        labels LIKE CONCAT('%', #{ss}, '%')
+        <if test="username != null and username != ''">
+            AND username = #{username}
+        </if>
+    </select>
+    <select id="getwp" resultType="java.lang.Integer">
+        SELECT count(*) FROM tb_wallpaper where
+        labels LIKE CONCAT('%', #{ss}, '%')
+        <if test="username != null and username != ''">
+            AND username = #{username}
+        </if>
+    </select>
+    <select id="getid" resultType="com.isteyft.pojo.Wallpaper">
+        SELECT * FROM tb_wallpaper where wallpaperId = #{id}
+    </select>
+</mapper>

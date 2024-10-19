@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.isteyft.mapper.BokeMapper">
+    <update id="updatebk">
+        UPDATE tb_boke
+        SET title = #{title},txt=#{txt},imgurl=#{imgurl},uploadTime = now(),top=#{istop}
+        WHERE bokeId = #{bokeid}
+    </update>
+    <update id="updatepl">
+        UPDATE tb_pl
+        SET txt=#{txt}, username = #{username}
+        WHERE plid = #{plid}
+    </update>
+    <insert id="uploadbk">
+        insert into tb_boke(bokeId, title,txt,username,top,imgurl)
+        values (#{bokeid}, #{title}, #{txt}, #{username},#{istop},#{imgurl})
+    </insert>
+    <insert id="uploadpl">
+        insert into tb_pl(bokeId,username,txt)
+        values (#{bokeid}, #{username}, #{txt})
+    </insert>
+    <delete id="delbk">
+        delete from tb_boke WHERE bokeId = #{bokeId}
+    </delete>
+    <delete id="delpl">
+        delete from tb_pl WHERE plid = #{plid}
+    </delete>
+    <select id="getzd" resultType="com.isteyft.pojo.Boke">
+        SELECT * FROM tb_boke WHERE top = "yes";
+    </select>
+    <select id="findByUsername" resultType="com.isteyft.pojo.Boke">
+        SELECT * FROM tb_boke
+                 WHERE title LIKE CONCAT('%', #{ss}, '%')
+                    OR txt LIKE CONCAT('%', #{ss}, '%')
+                <if test="username != null and username != ''">
+                    AND username = #{username}
+                </if>
+                ORDER BY uploadTime DESC
+    </select>
+    <select id="getid" resultType="com.isteyft.pojo.Boke">
+        SELECT * FROM tb_boke where bokeId = #{id}
+    </select>
+    <select id="getbk" resultType="java.lang.Integer">
+        SELECT count(*) FROM tb_boke
+        WHERE title LIKE CONCAT('%', #{ss}, '%')
+           OR txt LIKE CONCAT('%', #{ss}, '%')
+        <if test="username != null and username != ''">
+            AND username = #{username}
+        </if>
+    </select>
+    <select id="getpl"  resultType="com.isteyft.pojo.Pl">
+        SELECT * FROM tb_pl where bokeid = #{bokeid}
+    </select>
+    <select id="getplss" resultType="java.lang.Integer">
+        SELECT count(*) FROM tb_pl
+        WHERE username LIKE CONCAT('%', #{ss}, '%')
+        OR txt LIKE CONCAT('%', #{ss}, '%')
+    </select>
+    <select id="findpl" resultType="com.isteyft.pojo.Pl">
+        SELECT * FROM tb_pl
+        WHERE username LIKE CONCAT('%', #{ss}, '%')
+        OR txt LIKE CONCAT('%', #{ss}, '%')
+        ORDER BY uploadTime DESC
+    </select>
+    <select id="getplid" resultType="com.isteyft.pojo.Pl">
+        SELECT * FROM tb_pl where plid = #{plid}
+    </select>
+</mapper>
