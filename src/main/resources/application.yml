@@ -2,7 +2,7 @@ spring:
   #数据库连接信息
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://isteyft.top:3306/db_wallpaper
+    #    url: jdbc:mysql://isteyft.top:3306/db_wallpaper
     url: jdbc:mysql://localhost:3306/db_wallpaper
     username: root
     password: 123

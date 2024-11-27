@@ -11,11 +11,11 @@ public interface WpMapper {
 
     Integer getwp(String username, String ss);
 
-    void saveWall(String uniqueFileName, String tag,String username);
+    void saveWall(String uniqueFileName, String labels, String username, String tag);
 
     void delwp(String wallpaperId);
 
     Wallpaper getid(String id);
 
-    Integer upWall(String wallpaperId, String tag);
+    Integer upWall(String wallpaperId, String labels, String tag);
 }

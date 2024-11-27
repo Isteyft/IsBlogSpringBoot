@@ -15,16 +15,19 @@ public interface BokeMapper {
 
 
     List<Boke> findByUsername(String username, String ss);
+    List<Boke> findByUsernamebytag(String username, String ss);
 
     Integer getbk(String username, String ss);
+
+    Integer getbkbytag(String username, String ss);
 
     Boke getid(String id);
 
     void delbk(String bokeId);
 
-    Integer uploadbk(String bokeid, String title, String txt, String username, String istop, String imgurl);
+    Integer uploadbk(String bokeid, String title, String txt, String username, String istop, String imgurl, String tag);
 
-    Integer updatebk(String bokeid, String title, String txt, String username, String istop, String imgurl);
+    Integer updatebk(String bokeid, String title, String txt, String username, String istop, String imgurl, String tag);
 
     List<Pl> getpl(String bokeId);
 
@@ -39,4 +42,6 @@ public interface BokeMapper {
     List<Pl> findpl(String ss);
 
     Pl getplid(String plid);
+
+    void addvisit(String id, int visit);
 }

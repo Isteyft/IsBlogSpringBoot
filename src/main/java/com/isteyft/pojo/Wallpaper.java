@@ -16,4 +16,6 @@ public class Wallpaper {
     private String labels;
     private Date loadTime;
     private Date uploadTime;
+    private String tag;
+    private String info;
 }

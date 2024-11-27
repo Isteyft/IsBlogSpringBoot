@@ -25,6 +25,20 @@ public class BokeController {
         dataMap.put("topboke", bokeService.getzd());
         return Result.success(dataMap);
     }
+
+    @GetMapping("/bokestag")
+    public Result getbokesbytag(@RequestParam String username, @RequestParam int pageNum,
+                           @RequestParam int pageSize, @RequestParam(defaultValue = "") String ss){
+        log.info("登录: {}, pageNum: {}, pageSize: {},ss:{}", username, pageNum, pageSize,ss);
+        //获取博客
+        PageInfo<Boke> bokes = bokeService.getbokesbytag(username, pageNum, pageSize,ss);
+        //博客数量，用于显示页数
+        Integer bk = bokeService.getbkbytag(username, ss);
+        Map<String, Object> dataMap = new HashMap<>();
+        dataMap.put("bokelist", bokes);
+        dataMap.put("count", bk);
+        return Result.success(dataMap);
+    }
     //获取所有博客
     @GetMapping("/bokes")
     public Result getbokes(@RequestParam String username, @RequestParam int pageNum,

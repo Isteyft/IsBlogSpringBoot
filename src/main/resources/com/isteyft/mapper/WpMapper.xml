@@ -2,13 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.isteyft.mapper.WpMapper">
     <insert id="saveWall">
-        insert into tb_wallpaper(wallpaperId, labels,username)
-        values (#{uniqueFileName}, #{tag},#{username})
+        insert into tb_wallpaper(wallpaperId, labels, username, tag)
+        values (#{uniqueFileName}, #{labels}, #{username}, #{tag})
     </insert>
     <update id="upWall">
         UPDATE tb_wallpaper
-        SET labels = #{tag}, uploadTime = now()
+        SET labels = #{labels}, tag = #{tag}, uploadTime = now()
         WHERE wallpaperId = #{wallpaperId}
+        ORDER BY uploadTime DESC
     </update>
     <delete id="delwp">
         delete from tb_wallpaper WHERE wallpaperId = #{wallpaperId}
@@ -19,15 +20,18 @@
         <if test="username != null and username != ''">
             AND username = #{username}
         </if>
+        ORDER BY uploadTime DESC
     </select>
     <select id="getwp" resultType="java.lang.Integer">
         SELECT count(*) FROM tb_wallpaper where
         labels LIKE CONCAT('%', #{ss}, '%')
+        OR tag LIKE CONCAT('%', #{ss}, '%')
         <if test="username != null and username != ''">
             AND username = #{username}
         </if>
+        ORDER BY uploadTime DESC
     </select>
     <select id="getid" resultType="com.isteyft.pojo.Wallpaper">
-        SELECT * FROM tb_wallpaper where wallpaperId = #{id}
+        SELECT * FROM tb_wallpaper where wallpaperId = #{id} ORDER BY uploadTime DESC
     </select>
 </mapper>

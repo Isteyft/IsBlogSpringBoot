@@ -37,7 +37,7 @@ public class AdminBokeController {
         }else {
             istop = "no";
         }
-        return Result.success(bokeService.uploadbk(bokeid,boke.getTitle(),boke.getTxt(),boke.getUsername(),istop,boke.getImgurl()));
+        return Result.success(bokeService.uploadbk(bokeid,boke.getTitle(),boke.getTxt(),boke.getUsername(),istop,boke.getImgurl(),boke.getTag()));
     }
     //更新博客
     @PutMapping("/update")
@@ -51,7 +51,7 @@ public class AdminBokeController {
         }else {
             istop = "no";
         }
-        return Result.success(bokeService.updatebk(boke.getBokeId(),boke.getTitle(),boke.getTxt(),boke.getUsername(),istop,boke.getImgurl()));
+        return Result.success(bokeService.updatebk(boke.getBokeId(),boke.getTitle(),boke.getTxt(),boke.getUsername(),istop,boke.getImgurl(),boke.getTag()));
     }
     //根据评论id获取评论，用于修改
     @GetMapping("/plid")

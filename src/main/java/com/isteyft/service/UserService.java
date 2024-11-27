@@ -10,4 +10,5 @@ public interface UserService {
 
     Boolean reg(User user);
 
+    String getPer(String username);
 }

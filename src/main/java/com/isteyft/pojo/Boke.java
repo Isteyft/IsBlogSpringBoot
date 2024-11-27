@@ -25,4 +25,6 @@ public class Boke {
     @JsonDeserialize(using = FlexibleDateDeserializer.class)
     private Date uploadTime;
     private String top;
+    private String tag;
+    private Integer visit;
 }

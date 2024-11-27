@@ -29,8 +29,8 @@ public class WpServiceImpl implements WpService {
     }
 
     @Override
-    public void saveFile(String uniqueFileName, String tag, String username) {
-        wpMapper.saveWall(uniqueFileName, tag, username);
+    public void saveFile(String uniqueFileName, String labels, String username, String tag) {
+        wpMapper.saveWall(uniqueFileName, labels, username, tag);
     }
 
     @Override
@@ -44,8 +44,8 @@ public class WpServiceImpl implements WpService {
     }
 
     @Override
-    public Integer upFile(String wallpaperId, String tag) {
-        return wpMapper.upWall(wallpaperId, tag);
+    public Integer upFile(String wallpaperId, String labels, String tag) {
+        return wpMapper.upWall(wallpaperId, labels, tag);
     }
 
 }

@@ -14,7 +14,12 @@ public interface BokeService {
     public List<Boke> getzd();
 
     @Cacheable(value = "boke-list", key = "#username + '_' + #pageNum + '_' + #pageSize + '_' + #ss")
+    PageInfo<Boke> getbokesbytag(String username, int pageNum, int pageSize, String ss);
+
+    @Cacheable(value = "boke-list", key = "#username + '_' + #pageNum + '_' + #pageSize + '_' + #ss")
     PageInfo<Boke> getbokes(String username, int pageNum, int pageSize, String ss);
+
+    Integer getbkbytag(String username, String ss);
 
     Integer getbk(String username, String ss);
 
@@ -22,9 +27,9 @@ public interface BokeService {
 
     void delbk(String bokeId);
 
-    Integer uploadbk(String bokeid, String title, String txt, String username, String istop, String imgurl);
+    Integer uploadbk(String bokeid, String title, String txt, String username, String istop, String imgurl, String tag);
 
-    Integer updatebk(String bokeid, String title, String txt, String username, String istop, String imgurl);
+    Integer updatebk(String bokeid, String title, String txt, String username, String istop, String imgurl, String tag);
 
     List<Pl> getpl(String bokeid);
 

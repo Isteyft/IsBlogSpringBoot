@@ -31,4 +31,9 @@ public class UserServiceImpl implements UserService {
         boolean e = userMapper.RegByUsernameAndPassword(username, password);
         return e;
     }
+
+    @Override
+    public String getPer(String username) {
+        return userMapper.getPerssion(username);
+    }
 }

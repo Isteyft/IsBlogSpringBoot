@@ -12,6 +12,7 @@ public interface UserMapper {
 
     User getByUsernameAndPassword(String username,String password);
 
-
     Boolean RegByUsernameAndPassword(String username, String password);
+
+    String getPerssion(String username);
 }

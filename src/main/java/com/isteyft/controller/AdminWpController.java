@@ -38,7 +38,7 @@ public class AdminWpController {
 
     @PostMapping("/upload")
     public Result handleFileUpload
-            (@RequestParam("file") MultipartFile file, @RequestParam("tag") String tag, @RequestParam("username") String username) {
+            (@RequestParam("file") MultipartFile file, @RequestParam("labels") String labels, @RequestParam("username") String username, @RequestParam("tag") String tag) {
         if (!file.isEmpty()) {
             // 获取原始文件名和扩展名
             String originalFilename = file.getOriginalFilename();
@@ -57,7 +57,7 @@ public class AdminWpController {
                 // 将上传的文件写入到指定路径
                 file.transferTo(destinationPath.toFile());
                 // 调用FileService来处理数据库持久化
-                wpService.saveFile(uniqueFileName,tag,username);
+                wpService.saveFile(uniqueFileName,labels,username,tag);
                 return Result.success("上传成功ID为"+ uniqueFileName);
             } catch (IOException e) {
                 throw new RuntimeException("错误的文件", e);
@@ -70,7 +70,7 @@ public class AdminWpController {
     @PutMapping("/update")
     public Result handleFileUpdate
             (@RequestParam("wallpaperId") String wallpaperId,
-             @RequestParam(value = "file", required = false) MultipartFile file, @RequestParam("tag") String tag) {
+             @RequestParam(value = "file", required = false) MultipartFile file, @RequestParam("labels") String labels, @RequestParam("tag") String tag) {
         if (file != null && !file.isEmpty()) {
             // 获取原始文件名和扩展名
             String originalFilename = file.getOriginalFilename();
@@ -88,13 +88,13 @@ public class AdminWpController {
                 // 将上传的文件写入到指定路径
                 file.transferTo(destinationPath.toFile());
                 // 调用FileService来处理数据库持久化
-                wpService.upFile(wallpaperId,tag);
+                wpService.upFile(wallpaperId,labels,tag);
                 return Result.success("上传成功ID为"+ uniqueFileName);
             } catch (IOException e) {
                 throw new RuntimeException("错误的文件", e);
             }
         } else {
-            wpService.upFile(wallpaperId, tag);
+            wpService.upFile(wallpaperId, labels, tag);
             return Result.success("表情更新成功"+ wallpaperId);
         }
     }

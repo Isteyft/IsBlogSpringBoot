@@ -9,11 +9,11 @@ public interface WpService {
 
     Integer getwp(String username, String ss);
 
-    void saveFile(String uniqueFileName, String tag,String username);
+    void saveFile(String uniqueFileName, String labels,String username,String tag);
 
     void delwp(String wallpaperId);
 
     Wallpaper getid(String id);
 
-    Integer upFile(String wallpaperId, String tag);
+    Integer upFile(String wallpaperId,String labels, String tag);
 }

@@ -2,6 +2,7 @@ package com.isteyft.controller;
 
 
 import com.isteyft.pojo.Result;
+import com.isteyft.pojo.UP;
 import com.isteyft.pojo.User;
 import com.isteyft.service.UserService;
 import com.isteyft.utils.JwtUtils;
@@ -31,9 +32,9 @@ public class LoginController {
         if (e != null){
             Map<String, Object> claims = new HashMap<>();
             claims.put("username", e.getUsername());
-
+            String per = userService.getPer(user.getUsername());
             String jwt = JwtUtils.generateJwt(claims); //jwt包含了当前登录的员工信息
-            return Result.success(jwt);
+            return Result.success(new UP(jwt,per));
         }
         //登录失败, 返回错误信息
         return Result.error("用户名或密码错误");

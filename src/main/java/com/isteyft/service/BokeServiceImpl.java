@@ -23,10 +23,22 @@ public class BokeServiceImpl implements BokeService {
     }
 
     @Override
+    public PageInfo<Boke> getbokesbytag(String username, int pageNum, int pageSize, String ss) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Boke> boke = bokeMapper.findByUsernamebytag(username, ss);
+        return new PageInfo<>(boke);
+    }
+
+    @Override
     public PageInfo<Boke> getbokes(String username, int pageNum, int pageSize, String ss) {
         PageHelper.startPage(pageNum, pageSize);
         List<Boke> boke = bokeMapper.findByUsername(username, ss);
         return new PageInfo<>(boke);
+    }
+
+    @Override
+    public Integer getbkbytag(String username, String ss) {
+        return bokeMapper.getbkbytag(username, ss);
     }
 
     @Override
@@ -36,7 +48,9 @@ public class BokeServiceImpl implements BokeService {
 
     @Override
     public Boke getid(String id) {
-        return bokeMapper.getid(id);
+        Boke boke = bokeMapper.getid(id);
+        bokeMapper.addvisit(id,boke.getVisit()+1);
+        return boke;
     }
 
     @Override
@@ -45,13 +59,13 @@ public class BokeServiceImpl implements BokeService {
     }
 
     @Override
-    public Integer uploadbk(String bokeid, String title, String txt, String username, String istop, String imgurl) {
-        return bokeMapper.uploadbk(bokeid,title,txt,username,istop,imgurl);
+    public Integer uploadbk(String bokeid, String title, String txt, String username, String istop, String imgurl, String tag) {
+        return bokeMapper.uploadbk(bokeid,title,txt,username,istop,imgurl,tag);
     }
 
     @Override
-    public Integer updatebk(String bokeid, String title, String txt, String username, String istop, String imgurl) {
-        return bokeMapper.updatebk(bokeid,title,txt,username,istop,imgurl);
+    public Integer updatebk(String bokeid, String title, String txt, String username, String istop, String imgurl, String tag) {
+        return bokeMapper.updatebk(bokeid,title,txt,username,istop,imgurl,tag);
 
     }
 
