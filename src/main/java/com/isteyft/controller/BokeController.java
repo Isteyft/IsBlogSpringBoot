@@ -2,6 +2,7 @@ package com.isteyft.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.isteyft.pojo.Boke;
+import com.isteyft.pojo.CPl;
 import com.isteyft.pojo.Pl;
 import com.isteyft.pojo.Result;
 
@@ -65,6 +66,12 @@ public class BokeController {
     public Result Uploadpl
     (@RequestBody Pl pl){
         return Result.success(bokeService.uploadpl(pl.getBokeId(),pl.getTxt(),pl.getUsername()));
+    }
+    //子评论
+    @PostMapping("/uploadcpl")
+    public Result Uploadcpl
+            (@RequestBody CPl cpl){
+        return Result.success(bokeService.uploadcpl(cpl.getBokeId(),cpl.getTxt(),cpl.getUsername(),cpl.getPlid(),cpl.getReplyTo()));
     }
     //用于查找文章
     @GetMapping("/id")

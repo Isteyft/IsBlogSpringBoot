@@ -1,9 +1,8 @@
 package com.isteyft.mapper;
 
-import com.github.pagehelper.PageInfo;
 import com.isteyft.pojo.Boke;
+import com.isteyft.pojo.CPl;
 import com.isteyft.pojo.Pl;
-import com.isteyft.pojo.Wallpaper;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -30,6 +29,7 @@ public interface BokeMapper {
     Integer updatebk(String bokeid, String title, String txt, String username, String istop, String imgurl, String tag);
 
     List<Pl> getpl(String bokeId);
+    CPl[] getcpl(String plid);
 
     Integer uploadpl(String bokeid, String txt, String username);
 
@@ -44,4 +44,14 @@ public interface BokeMapper {
     Pl getplid(String plid);
 
     void addvisit(String id, int visit);
+
+    Integer uploadcpl(String bokeid, String txt, String username, String plid, String replyTo);
+
+    void delcpl(String cplid);
+
+    Integer updatecpl(String cplid, String txt, String username);
+
+    Integer getcplss(String ss, String plid);
+
+    List<CPl> findcpl(String ss, String plid);
 }

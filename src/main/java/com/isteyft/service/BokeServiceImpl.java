@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.isteyft.mapper.BokeMapper;
 import com.isteyft.pojo.Boke;
+import com.isteyft.pojo.CPl;
 import com.isteyft.pojo.Pl;
 import com.isteyft.pojo.Wallpaper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +72,11 @@ public class BokeServiceImpl implements BokeService {
 
     @Override
     public List<Pl> getpl(String bokeId) {
-        return bokeMapper.getpl(bokeId);
+        List<Pl> pls = bokeMapper.getpl(bokeId);
+        for (Pl pl : pls) {
+            pl.setCpls(bokeMapper.getcpl(pl.getPlid()));
+        }
+        return pls;
     }
 
     @Override
@@ -80,13 +85,32 @@ public class BokeServiceImpl implements BokeService {
     }
 
     @Override
+    public Integer uploadcpl(String bokeid, String txt, String username, String plid, String replyTo) {
+        return bokeMapper.uploadcpl(bokeid,txt,username,plid,replyTo);
+    }
+
+    @Override
     public void delpl(String plid) {
         bokeMapper.delpl(plid);
+        CPl[] cpls = bokeMapper.getcpl(plid);
+        for (CPl cpl : cpls) {
+            bokeMapper.delcpl(cpl.getCplid());
+        }
+    }
+
+    @Override
+    public void delcpl(String cplid) {
+        bokeMapper.delcpl(cplid);
     }
 
     @Override
     public Integer updatepl(String plid, String txt, String username) {
         return bokeMapper.updatepl(plid,txt,username);
+    }
+
+    @Override
+    public Integer updatecpl(String cplid, String txt, String username) {
+        return bokeMapper.updatecpl(cplid,txt,username);
     }
 
     @Override
@@ -97,12 +121,27 @@ public class BokeServiceImpl implements BokeService {
     @Override
     public PageInfo<Pl> getpls(int pageNum, int pageSize, String ss) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Pl> boke = bokeMapper.findpl(ss);
-        return new PageInfo<>(boke);
+        List<Pl> pls = bokeMapper.findpl(ss);
+        for (Pl pl : pls) {
+            pl.setCpls(bokeMapper.getcpl(pl.getPlid()));
+        }
+        return new PageInfo<>(pls);
     }
 
     @Override
     public Pl getplid(String plid) {
         return bokeMapper.getplid(plid);
+    }
+
+    @Override
+    public Integer getcplss(String ss, String plid) {
+        return bokeMapper.getcplss(ss, plid);
+    }
+
+    @Override
+    public PageInfo<CPl> getcpls(int pageNum, int pageSize, String ss, String plid) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<CPl> pls = bokeMapper.findcpl(ss, plid);
+        return new PageInfo<>(pls);
     }
 }

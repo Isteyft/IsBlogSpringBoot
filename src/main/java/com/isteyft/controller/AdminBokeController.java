@@ -2,6 +2,7 @@ package com.isteyft.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.isteyft.pojo.Boke;
+import com.isteyft.pojo.CPl;
 import com.isteyft.pojo.Pl;
 import com.isteyft.pojo.Result;
 import com.isteyft.service.BokeService;
@@ -73,6 +74,20 @@ public class AdminBokeController {
         dataMap.put("count", plss);
         return Result.success(dataMap);
     }
+    @GetMapping("/cpls")
+    public Result getcpls( @RequestParam int pageNum,
+                          @RequestParam int pageSize,
+                           @RequestParam(defaultValue = "") String ss,
+                           @RequestParam(defaultValue = "") String plid){
+
+        log.info("pageNum: {}, pageSize: {},ss:{},plid:{}", pageNum, pageSize,ss,plid);
+        Integer plss = bokeService.getcplss(ss,plid);
+        PageInfo<CPl> pinlun = bokeService.getcpls(pageNum, pageSize,ss,plid);
+        Map<String, Object> dataMap = new HashMap<>();
+        dataMap.put("pinlunlist", pinlun);
+        dataMap.put("count", plss);
+        return Result.success(dataMap);
+    }
     //更新评论
     @PutMapping("/updatepl")
     @ResponseBody
@@ -80,9 +95,21 @@ public class AdminBokeController {
     (@RequestBody Pl pl){
         return Result.success(bokeService.updatepl(pl.getPlid(),pl.getTxt(),pl.getUsername()));
     }
-    //删除评论
+    //删除子评论
     @DeleteMapping("/scpl")
     public void delpl(String plid){
         bokeService.delpl(plid);
+    }
+    //更新评论
+    @PutMapping("/updatecpl")
+    @ResponseBody
+    public Result updatecpl
+    (@RequestBody CPl cpl){
+        return Result.success(bokeService.updatecpl(cpl.getCplid(),cpl.getTxt(),cpl.getUsername()));
+    }
+    //删除子评论
+    @DeleteMapping("/sccpl")
+    public void delcpl(String cplid){
+        bokeService.delcpl(cplid);
     }
 }

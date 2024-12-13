@@ -19,16 +19,28 @@
         insert into tb_pl(bokeId,username,txt)
         values (#{bokeid}, #{username}, #{txt})
     </insert>
+    <insert id="uploadcpl">
+        insert into tb_cpl(bokeId,username,txt,plid,replyTo)
+        values (#{bokeid}, #{username}, #{txt}, #{plid}, #{replyTo})
+    </insert>
     <update id="addvisit">
         UPDATE tb_boke
         SET `visit` = #{visit}
         WHERE bokeId = #{id}
+    </update>
+    <update id="updatecpl">
+        UPDATE tb_cpl
+        SET txt=#{txt}, username = #{username}
+        WHERE cplid = #{cplid}
     </update>
     <delete id="delbk">
         delete from tb_boke WHERE bokeId = #{bokeId}
     </delete>
     <delete id="delpl">
         delete from tb_pl WHERE plid = #{plid}
+    </delete>
+    <delete id="delcpl">
+        delete from tb_cpl WHERE cplid = #{cplid}
     </delete>
     <select id="getzd" resultType="com.isteyft.pojo.Boke">
         SELECT * FROM tb_boke WHERE top = "yes";
@@ -82,5 +94,22 @@
     </select>
     <select id="getplid" resultType="com.isteyft.pojo.Pl">
         SELECT * FROM tb_pl where plid = #{plid}
+    </select>
+    <select id="getcpl" resultType="com.isteyft.pojo.CPl">
+        SELECT * FROM tb_cpl where plid = #{plid}
+    </select>
+    <select id="getcplss" resultType="java.lang.Integer">
+        SELECT count(*) FROM tb_cpl
+        WHERE username LIKE CONCAT('%', #{ss}, '%')
+        OR txt LIKE CONCAT('%', #{ss}, '%')
+        AND plid = #{plid}
+        ORDER BY uploadTime DESC
+    </select>
+    <select id="findcpl" resultType="com.isteyft.pojo.CPl">
+        SELECT * FROM tb_cpl
+        WHERE plid = #{plid}
+        AND username LIKE CONCAT('%', #{ss}, '%')
+        OR txt LIKE CONCAT('%', #{ss}, '%')
+        ORDER BY uploadTime DESC
     </select>
 </mapper>

@@ -14,12 +14,13 @@ import java.util.Date;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Pl {
+public class CPl {
+    private String cplid;
     private String plid;
     private String bokeId;
     private String username;
+    private String replyTo;
     private String txt;
     @JsonDeserialize(using = FlexibleDateDeserializer.class)
     private Date uploadTime;
-    private CPl[] Cpls;
 }
