@@ -108,8 +108,8 @@
     <select id="findcpl" resultType="com.isteyft.pojo.CPl">
         SELECT * FROM tb_cpl
         WHERE plid = #{plid}
-        AND username LIKE CONCAT('%', #{ss}, '%')
-        OR txt LIKE CONCAT('%', #{ss}, '%')
+        AND (username LIKE CONCAT('%', #{ss}, '%')
+        OR txt LIKE CONCAT('%', #{ss}, '%'))
         ORDER BY uploadTime DESC
     </select>
 </mapper>
